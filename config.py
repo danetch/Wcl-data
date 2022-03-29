@@ -10,7 +10,7 @@ encounters_9_0 = [
     {"id": 2417, "name": "Les Généraux"},
     {"id": 2407, "name": "Dénathrius"}
 ]
-encounters = [
+encounters_9_1 = [
     {"id": 2423, "name": "Le Naphtrémens"},
     {"id": 2433, "name": "L'œil du Geôlier"},
     {"id": 2429, "name": "Les Neuf"},
@@ -22,17 +22,34 @@ encounters = [
     {"id": 2422, "name": "Kel'Thuzad"},
     {"id": 2435, "name": "Sylvanas Coursevent"}
 ]
+
+encounters = [
+    {"id": 2512, "name": "Gardien Vigilant"},
+    {"id": 2540, "name": "Dausegne"},
+    {"id": 2553, "name": "Xy'mox"},
+    {"id": 2544, "name": "Panthéon des Prototypes"},
+    {"id": 2542, "name": "Skolex"},
+    {"id": 2529, "name": "Halondrus" },
+    {"id": 2539, "name": "Lihuvim" },
+    {"id": 2546, "name": "Anduin" },
+    {"id": 2543, "name": "Seigneurs de l'Effroi"},
+    {"id": 2549, "name": "Rygelon"},
+    {"id": 2537, "name": "Le JoJo"},
+]
+
+
+
 #waist => gants, ceinture, epau, bottes
 #jewels => anneau et cou
 #chest => jambe, torse, tête
 #wirsts => poignets / cape.
-gear_budget = {"waist_b": {200: 90, 213: 98, 226: 106, 233: 109, 239: 114, 246: 117, 252: 120, 259: 124},
-               "jewels_b": {200: 171, 213: 193, 226: 214, 233: 226, 239: 236, 246: 247, 252: 258, 259: 269},
-               "chest_b": {200: 122, 213: 132, 226: 141, 233: 146, 239: 151, 246: 156, 252: 160, 259: 166},
-               "wrists_b": {200: 67, 213: 73, 226: 79, 239: 85, 252: 91},
+gear_budget = {"waist_b": {200: 90, 213: 98, 226: 106, 233: 109, 239: 114, 246: 117, 252: 120, 259: 124, 265: 127, 272: 131, 278: 134, 285: 138},
+               "jewels_b": {200: 171, 213: 193, 226: 214, 233: 226, 239: 236, 246: 247, 252: 258, 259: 269, 265: 279, 272: 291, 278: 299, 285: 311},
+               "chest_b": {200: 122, 213: 132, 226: 141, 233: 146, 239: 151, 246: 156, 252: 160, 259: 166, 265: 170, 272: 175, 278: 179, 285: 185},
+               "wrists_b": {200: 67, 213: 73, 226: 79, 239: 85, 252: 91, 259: 93, 265: 95, 272: 98, 278: 101, 285: 104},
                "trinkets_b": {200: 89, 213: 95, 226: 101, 239: 108, 252: 115},
-               "weapon_1h_b": {200: 60, 213: 65, 226: 69, 233: 72, 239: 75, 252: 80},
-               "weapon_2h_b": {200: 122, 213: 132, 226: 140, 233: 145, 239: 151, 246: 156, 252: 161, 259: 165}
+               "weapon_1h_b": {200: 60, 213: 65, 226: 69, 233: 72, 239: 75, 252: 80, 259: 83, 265: 85, 272: 87, 278: 90, 285: 92},
+               "weapon_2h_b": {200: 122, 213: 132, 226: 140, 233: 145, 239: 151, 246: 156, 252: 161, 259: 165, 272: 175, 278: 179, 285: 185}
                }
 inventory_to_b = {"SHOULDER": "waist_b",
                   "NECK": "jewels_b",
@@ -57,47 +74,47 @@ specs = [
     {"specName": "Blood", "className": "DeathKnight", "spe": "Sang", "classe": "DK", "mask": [5], "metric": "dps"},
     {"specName": "Frost", "className": "DeathKnight", "spe": "Givre", "classe": "DK", "mask": [3, 5], "metric": "dps"},
     {"specName": "Unholy", "className": "DeathKnight", "spe": "Impie", "classe": "DK", "mask": [3, 5], "metric": "dps"},
-    #dh
+    # dh
     {"specName": "Havoc", "className": "DemonHunter", "spe": "Dps", "classe": "DH", "mask": [4, 6], "metric": "dps"},
     {"specName": "Vengeance", "className": "DemonHunter", "spe": "Tank", "classe": "DH", "mask": [5], "metric": "dps"},
-    #druid
+    # druid
     {"specName": "Balance", "className": "Druid", "spe": "Équi", "classe": "Druide", "mask": [2, 3, 4], "metric": "dps"},
     {"specName": "Feral", "className": "Druid", "spe": "Féral", "classe": "Druide", "mask": [2, 3, 4], "metric": "dps"},
     {"specName": "Guardian", "className": "Druid", "spe": "Gardien", "classe": "Druide", "mask": [2, 3, 4], "metric": "dps"},
     {"specName": "Restoration", "className": "Druid", "spe": "Restau", "classe": "Druide", "mask": [2, 3, 4], "metric": "hps"},
-    #hunter
+    # hunter
     {"specName": "BeastMastery", "className": "Hunter", "spe": "BM", "classe": "Chasseur", "mask": [3, 5], "metric": "dps"},
     {"specName": "Marksmanship", "className": "Hunter", "spe": "Précis", "classe": "Chasseur", "mask": [3, 5], "metric": "dps"},
     {"specName": "Survival", "className": "Hunter", "spe": "Survie", "classe": "Chasseur", "mask": [3, 5], "metric": "dps"},
-    #mage
+    # mage
     {"specName": "Arcane", "className": "Mage", "spe": "Arcane", "classe": "Mage", "mask": [2, 5], "metric": "dps"},
     {"specName": "Fire", "className": "Mage", "spe": "Feu", "classe": "Mage", "mask": [2, 5], "metric": "dps"},
     {"specName": "Frost", "className": "Mage", "spe": "Givre", "classe": "Mage", "mask": [2, 5], "metric": "dps"},
-    #monk
+    # monk
     {"specName": "Brewmaster", "className": "Monk", "spe": "Tank", "classe": "Moine", "mask": [2, 4, 5], "metric": "dps"},
     {"specName": "Mistweaver", "className": "Monk", "spe": "Tissebrume", "classe": "Moine", "mask": [2, 4, 5], "metric": "hps"},
     {"specName": "Windwalker", "className": "Monk", "spe": "Marchevent", "classe": "Moine", "mask": [2, 4, 5], "metric": "dps"},
-    #pal
+    # pal
     {"specName": "Holy", "className": "Paladin", "spe": "Sacré", "classe": "Paladin", "mask": [3], "metric": "hps"},
     {"specName": "Protection", "className": "Paladin", "spe": "Protection", "classe": "Paladin", "mask": [3, 4, 6], "metric": "dps"},
     {"specName": "Retribution", "className": "Paladin", "spe": "Vindicte", "classe": "Paladin", "mask": [3, 4, 6], "metric": "dps"},
-    #priest
+    # priest
     {"specName": "Discipline", "className": "Priest", "spe": "Discipline", "classe": "Prêtre", "mask": [2, 4], "metric": "hps"},
     {"specName": "Holy", "className": "Priest", "spe": "Sacré", "classe": "Prêtre", "mask": [2, 4], "metric": "hps"},
     {"specName": "Shadow", "className": "Priest", "spe": "Ombre", "classe": "Prêtre", "mask": [2, 4], "metric": "dps"},
-    #rogue
+    # rogue
     {"specName": "Assassination", "className": "Rogue", "spe": "Assassinat", "classe": "Voleur", "mask": [4, 5], "metric": "dps"},
     {"specName": "Outlaw", "className": "Rogue", "spe": "Pirate", "classe": "Voleur", "mask": [4, 5], "metric": "dps"},
     {"specName": "Subtlety", "className": "Rogue", "spe": "Finesse", "classe": "Voleur", "mask": [4, 5], "metric": "dps"},
-    #shaman
+    # shaman
     {"specName": "Elemental", "className": "Shaman", "spe": "Elem", "classe": "Chaman", "mask": [3, 5], "metric": "dps"},
     {"specName": "Enhancement", "className": "Shaman", "spe": "Amélio", "classe": "Chaman", "mask": [3, 5], "metric": "dps"},
     {"specName": "Restoration", "className": "Shaman", "spe": "Restau", "classe": "Chaman", "mask": [3, 5], "metric": "hps"},
-    #warlock
+    # warlock
     {"specName": "Affliction", "className": "Warlock", "spe": "Affli", "classe": "Démoniste", "mask": [3, 5], "metric": "dps"},
     {"specName": "Demonology", "className": "Warlock", "spe": "Demono", "classe": "Démoniste", "mask": [3, 5], "metric": "dps"},
     {"specName": "Destruction", "className": "Warlock", "spe": "Destru", "classe": "Démoniste", "mask": [3, 5], "metric": "dps"},
-    #warrior
+    # warrior
     {"specName": "Arms", "className": "Warrior", "spe": "Armes", "classe": "Guerrier", "mask": [2, 4], "metric": "dps"},
     {"specName": "Fury", "className": "Warrior", "spe": "Fureur", "classe": "Guerrier", "mask": [2, 4], "metric": "dps"},
     {"specName": "Protection", "className": "Warrior", "spe": "Protection", "classe": "Guerrier", "mask": [2, 4], "metric": "dps"},
