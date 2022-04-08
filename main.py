@@ -1,18 +1,21 @@
+import config
+import datetime
+import json
+import logging
+import os.path
+import requests
+import tokenhandler
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
-import json
-import os.path
-import tokenhandler
-import config
-import requests
-import logging
-import datetime
+from time import sleep
+
 
 logging.basicConfig(filename="wcl-data.log", level=logging.WARNING, format='%(asctime)s:%(message)s')
 token = tokenhandler.get_token()
 blizzard_token = tokenhandler.get_btoken()
-blizzard_header = {'Authorization': blizzard_token, 'Battlenet-Namespace': "static-eu"}
+blizzard_header = {'Authorization': blizzard_token, 'Battlenet-Namespace': "static-eu", 'User-Agent': "PythonScript" }
 headers = {'Authorization': token}
+req = requests.session()
 secondary_stats = ["CRIT_RATING", "HASTE_RATING", "MASTERY_RATING", "VERSATILITY"]
 # Select your transport with a defined url endpoint
 transport = AIOHTTPTransport(url="https://www.warcraftlogs.com/api/v2/client", headers=headers)
@@ -78,7 +81,20 @@ def scaleItemLvl(item, real_ilvl):
 
 
 def get_blizzard_data(item_id):
-    response = requests.get("https://eu.api.blizzard.com/data/wow/item/"+str(item_id), headers=blizzard_header)
+    print("starting item " + str(item_id))
+    retries = 0
+    while(retries<3):
+        try:
+            response = req.get("https://eu.api.blizzard.com/data/wow/item/" + str(item_id), headers=blizzard_header)
+            retries = 4
+        except BaseException as e:
+            sleep(5)
+            print(e + "\n try :"+str(retries))
+            retries = retries + 1
+        finally:
+            print("retries where at "+str(retries))
+    if retries == 3:
+        return "none"
     item_stats = {}
     if response.status_code == 404:
         return "none"
@@ -119,6 +135,7 @@ def computeStatsPriorities(player_sstat_budget):
 # the goal of this is to get blizz data from the item list we already have, or from the blizz api,
 # then scale it and return it
 def get_item_data(item_id, ilvl):
+    global items
     if item_id == 0:
         return
     if item_id not in items:
@@ -210,7 +227,7 @@ def combine_data(data, query_parameters):
         # talent combination includes legendaries.
         talent_combination['id'] += lgds_id
         tc_id = hash(talent_combination['id'])
-        lgds_id = hash(lgds_id)
+        # lgds_id = hash(lgds_id) doesn't seen to serve any purpose ?
         # this part computes the stat budget.
         player_sstat_budget = {"CRIT_RATING": 0, "HASTE_RATING": 0, "MASTERY_RATING": 0, "VERSATILITY": 0}
         gems = {173127: {"stat": "CRIT_RATING", "value": 16},
@@ -281,7 +298,11 @@ items_file = 'items.json'
 leg_file = 'leg.json'
 if os.path.isfile(items_file):
     items = json.loads(open(items_file, 'rt').read())
+    print('loaded items correctly')
+    logging.info('Loaded Items Correctly')
 else:
+    print('loaded items failed')
+    logging.info('Loading items failed')
     items = {}
 legs = set()
 results = {}
