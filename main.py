@@ -1,3 +1,5 @@
+from aiohttp import ClientResponseError
+
 import config
 import datetime
 import json
@@ -5,6 +7,7 @@ import logging
 import os.path
 import requests
 import tokenhandler
+import ast
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 from time import sleep
@@ -135,21 +138,21 @@ def computeStatsPriorities(player_sstat_budget):
 # the goal of this is to get blizz data from the item list we already have, or from the blizz api,
 # then scale it and return it
 def get_item_data(item_id, ilvl):
-    global items
     if item_id == 0:
         return
-    if item_id not in items:
+    if str(item_id) not in items:
+
         # store an ITEM
         item = get_blizzard_data(item_id)
-        items[item_id] = item
+        items[str(item_id)] = item
     else:
-        item = items[item_id]
+        item = items[str(item_id)]
     if item == "none":
         return
-    if not items[item_id]['stats']:
+    if not items[str(item_id)]['stats']:
         return
     # scale an item
-    return scaleItemLvl(items[item_id], ilvl)
+    return scaleItemLvl(items[str(item_id)], ilvl)
 
 
 # storing this to create a master list of what is played on all bosses.
@@ -167,7 +170,11 @@ def store_result(result, className, specName):
 
 def get_data(gql_client, query_parameters):
     query = gql(query_string)
-    result = gql_client.execute(query, variable_values=query_parameters)
+    try:
+        result = gql_client.execute(query, variable_values=query_parameters)
+    except ClientResponseError:
+        return  combine_data("", query_parameters)
+
     # store_result(result['worldData']['encounter']['characterRankings']['rankings'], query_parameters['className'],
     # ll
     # query_parameters['specName'])
@@ -298,7 +305,7 @@ items_file = 'items.json'
 leg_file = 'leg.json'
 if os.path.isfile(items_file):
     items = json.loads(open(items_file, 'rt').read())
-    print('loaded items correctly')
+    print('loaded items correctly : ' + str(len(items))+ ' items in it')
     logging.info('Loaded Items Correctly')
 else:
     print('loaded items failed')
